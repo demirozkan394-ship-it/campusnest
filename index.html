@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="tr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CampusNest</title>
+<style>
+:root{--bg:#fff8f1;--card:#fff;--tx:#1d2433;--mu:#6b7280;--br:#f0e2d3;--ac:#f97316;--bl:#1d4ed8;--ac2:#ffedd5;--ok:#15803d}
+@media (prefers-color-scheme:dark){:root{--bg:#10151f;--card:#1a2130;--tx:#eef1f7;--mu:#9aa5b8;--br:#2a3347;--ac:#fb923c;--bl:#60a5fa;--ac2:#3a2a1c;--ok:#4ade80;color-scheme:dark}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+.w{max-width:760px;margin:0 auto;padding:16px}.hd{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.logo{font-size:24px;font-weight:800;color:var(--bl)}.logo b{color:var(--ac)}
+.hero{background:linear-gradient(135deg,var(--ac),var(--bl));color:#fff;border-radius:16px;padding:18px;margin:12px 0}.hero h1{margin:0 0 4px;font-size:22px}.hero p{margin:0}
+.tabs{display:flex;gap:8px;margin:12px 0}.tabs button{flex:1}
+button{font:inherit;border:1px solid var(--br);background:var(--card);color:var(--tx);padding:10px 14px;border-radius:10px;cursor:pointer}
+button.p{background:var(--ac);border-color:var(--ac);color:#fff;font-weight:600}button.on{background:var(--ac2);border-color:var(--ac);color:var(--ac);font-weight:600}
+.sm{padding:6px 12px}.card{background:var(--card);border:1px solid var(--br);border-radius:14px;padding:14px;margin:10px 0}
+label{display:block;font-size:13px;color:var(--mu);margin:10px 0 4px}
+input,select,textarea{width:100%;font:inherit;padding:10px;border:1px solid var(--br);border-radius:10px;background:var(--bg);color:var(--tx)}
+textarea{min-height:80px;resize:vertical}.g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tag{display:inline-block;background:var(--ac2);color:var(--ac);border-radius:99px;padding:2px 10px;font-size:13px;margin:2px 4px 2px 0}
+.bd{display:inline-block;background:#dcfce7;color:#166534;border-radius:99px;padding:1px 9px;font-size:12px;margin-left:6px;font-weight:600}
+.n{font-weight:700;font-size:18px}.m{color:var(--mu);font-size:14px}.safe{background:var(--ac2);border-radius:12px;padding:10px 12px;font-size:14px;margin:10px 0}
+.hide{display:none}.ok{color:var(--ok)}.chk{display:flex;gap:8px;align-items:flex-start;margin-top:12px;font-size:14px}.chk input{width:auto;margin-top:4px}
+a{color:var(--bl);cursor:pointer}@media(max-width:480px){.g{grid-template-columns:1fr}}
+</style></head><body><div class="w">
+<div class="hd"><div class="logo">Campus<b>Nest</b> 🪺</div><div><button id="lang" class="sm">EN</button> <button id="out" class="sm hide" data-i="out"></button></div></div>
+<div class="hero"><h1 data-i="h1"></h1><p data-i="h2"></p></div>
+<div id="msg" class="safe hide"></div>
+
+<section id="auth" class="card">
+<div class="n" id="atitle"></div>
+<label data-i="email"></label><input id="em" type="email" autocomplete="email">
+<label data-i="pass"></label><input id="pw" type="password" autocomplete="current-password">
+<div style="display:flex;gap:8px;margin-top:14px"><button class="p" id="go" style="flex:1"></button></div>
+<p class="m"><a id="sw"></a> · <a id="fg2" data-i="forgot"></a></p></section>
+
+<div id="app" class="hide">
+<div class="tabs"><button id="t1" class="on" data-i="t1"></button><button id="t2" data-i="t2"></button></div>
+<section id="v1"><div class="card"><div class="g">
+<div><label data-i="city"></label><input id="fc"></div><div><label data-i="uni"></label><input id="fu"></div>
+<div><label data-i="dept"></label><input id="fb"></div><div><label data-i="gender"></label><select id="fg"></select></div></div>
+<label class="chk"><input type="checkbox" id="fe"><span data-i="onlyedu"></span></label></div>
+<div id="list"></div><div class="safe" data-i="tips"></div></section>
+<section id="v2" class="hide"><div class="card">
+<div class="n" data-i="mk"></div><div class="m" data-i="mk2"></div>
+<div class="g">
+<div><label><span data-i="name"></span> *</label><input id="name" maxlength="80"></div>
+<div><label><span data-i="age"></span> *</label><input id="age" type="number" min="17" max="60"></div>
+<div><label data-i="gender"></label><select id="gender"></select></div>
+<div><label data-i="want"></label><select id="want"></select></div>
+<div><label><span data-i="city"></span> *</label><input id="city" maxlength="60"></div>
+<div><label><span data-i="uni"></span> *</label><input id="uni" maxlength="100"></div>
+<div><label><span data-i="dept"></span> *</label><input id="dept" maxlength="100"></div>
+<div><label data-i="year"></label><select id="year"></select></div>
+<div><label data-i="budget"></label><input id="budget" type="number" min="0"></div>
+<div><label data-i="date"></label><input id="date" type="month"></div></div>
+<label><span data-i="bio"></span> *</label><textarea id="bio" maxlength="800"></textarea>
+<div class="n" style="margin-top:16px;font-size:16px" data-i="crt"></div>
+<div class="g"><div><label data-i="smoke"></label><select id="smoke"></select></div><div><label data-i="clean"></label><select id="clean"></select></div>
+<div><label data-i="rhythm"></label><select id="rhythm"></select></div><div><label data-i="pet"></label><select id="pet"></select></div>
+<div><label data-i="guest"></label><select id="guest"></select></div></div>
+<label data-i="crit"></label><textarea id="crit" maxlength="500"></textarea>
+<label><span data-i="contact"></span> *</label><input id="contact" maxlength="100">
+<div class="safe" style="margin-top:14px"><b data-i="vt"></b><div id="vs" class="m"></div>
+<div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><button class="sm" id="vsend" data-i="vsend"></button><button class="sm" id="vref" data-i="vref"></button></div></div>
+<div class="chk"><input type="checkbox" id="ok"><span data-i="okt"></span></div>
+<div style="display:flex;gap:8px;margin-top:14px"><button class="p" id="save" style="flex:1" data-i="save"></button><button id="del" class="hide" data-i="del"></button></div>
+<div id="saved" class="m ok" style="margin-top:8px"></div></div></section></div></div>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import{getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged,sendEmailVerification,sendPasswordResetEmail}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import{getFirestore,collection,doc,setDoc,deleteDoc,onSnapshot}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+const app=initializeApp({apiKey:"AIzaSyBvQnXScjk64h2u_FcucAtlypgfMHNyLiY",authDomain:"campusnest-5d1ac.firebaseapp.com",projectId:"campusnest-5d1ac",storageBucket:"campusnest-5d1ac.firebasestorage.app",messagingSenderId:"310581089011",appId:"1:310581089011:web:5e3b68b2d2d68d501d9d86"});
+const auth=getAuth(app),db=getFirestore(app);
+const $=id=>document.getElementById(id);
+const T={tr:{h1:"Üniversite şehrinde ev arkadaşını bul",h2:"Sadece öğrenciler için. Profilini oluştur, kriterlerine uyan kişilerle tanış.",t1:"Ev arkadaşı ara",t2:"Profilim",city:"Şehir",uni:"Üniversite",dept:"Bölüm",gender:"Cinsiyet",onlyedu:"Sadece doğrulanmış öğrencileri göster",
+tips:"🔒 Güvenlik: Önce görüntülü görüşün, sözleşmeyi birlikte okuyun, evi görmeden kapora göndermeyin.",mk:"Profilini oluştur",mk2:"Gerçek bilgiler gir; güvenilir profiller daha çok ilgi görür.",name:"Ad Soyad",age:"Yaş",want:"Aranan ev arkadaşı",year:"Sınıf",budget:"Aylık bütçe (kişi başı)",date:"Taşınma tarihi",
+bio:"Kısa özgeçmiş",crt:"Kriterlerim",smoke:"Sigara",clean:"Düzen",rhythm:"Yaşam ritmi",pet:"Evcil hayvan",guest:"Misafir",crit:"Ek beklentilerim",contact:"İletişim (Instagram / e-posta / telefon)",
+okt:"Bilgilerimin doğru olduğunu ve profilimin diğer öğrencilerce görülebileceğini kabul ediyorum.",save:"Kaydet",del:"Sil",out:"Çıkış",email:"E-posta",pass:"Şifre (en az 6 karakter)",forgot:"Şifremi unuttum",
+login:"Giriş yap",reg:"Kayıt ol",noacc:"Hesabın yok mu? Kayıt ol",hasacc:"Hesabın var mı? Giriş yap",vt:"🎓 Öğrenci doğrulaması",vsend:"Doğrulama e-postası gönder",vref:"Doğruladım, yenile",
+v0:"Üniversite e-postanla (.edu.tr) kayıt olup e-postanı doğrularsan profilinde rozet görünür.",v1:"Giriş e-postan üniversite adresi ama doğrulanmamış. E-postanı doğrula.",v2:"Doğrulandı:",
+g:["Kadın","Erkek"],w:["Fark etmez","Kadın","Erkek"],y:["Hazırlık","1","2","3","4","Yüksek lisans","Yeni kayıt"],s:["İçmem, içilmesin","İçmem, sorun değil","İçerim"],c:["Çok düzenliyim","Orta","Rahatım"],r:["Sabahçı","Gececi","Fark etmez"],p:["Sorun değil","İstemem","Kendi hayvanım var"],u:["Ara sıra","Sık","Hiç istemem"],all:"Hepsi",
+none:"Henüz eşleşen profil yok. İlk profili sen oluştur! 🙂",req:"Lütfen * alanlarını doldur.",cons:"Onay kutusunu işaretle.",ok:"✓ Profilin kaydedildi.",err:"İşlem başarısız, tekrar dene.",sure:"Profil silinsin mi?",looks:"Aradığı",cl:". sınıf",sent:"E-posta gönderildi, gelen kutunu ve spam'i kontrol et.",bad:"E-posta veya şifre hatalı.",used:"Bu e-posta zaten kayıtlı.",weak:"Şifre en az 6 karakter olmalı."},
+en:{h1:"Find your roommate in your university city",h2:"Students only. Create a profile and meet people who match your criteria.",t1:"Find roommates",t2:"My profile",city:"City",uni:"University",dept:"Major",gender:"Gender",onlyedu:"Only show verified students",
+tips:"🔒 Safety: Video-call first, read the lease together, never send a deposit before seeing the home.",mk:"Create your profile",mk2:"Use real info; trustworthy profiles get more attention.",name:"Full name",age:"Age",want:"Roommate preference",year:"Year",budget:"Monthly budget (per person)",date:"Move-in month",
+bio:"Short bio",crt:"My criteria",smoke:"Smoking",clean:"Tidiness",rhythm:"Daily rhythm",pet:"Pets",guest:"Guests",crit:"Other expectations",contact:"Contact (Instagram / email / phone)",
+okt:"I confirm my info is true and visible to other students.",save:"Save",del:"Delete",out:"Sign out",email:"Email",pass:"Password (min 6 chars)",forgot:"Forgot password",
+login:"Sign in",reg:"Sign up",noacc:"No account? Sign up",hasacc:"Have an account? Sign in",vt:"🎓 Student verification",vsend:"Send verification email",vref:"I verified, refresh",
+v0:"Sign up with your university email (.edu) and verify it to get a badge.",v1:"Your sign-in email is a university address but not verified yet. Verify your email.",v2:"Verified:",
+g:["Female","Male"],w:["No preference","Female","Male"],y:["Prep","1","2","3","4","Master's","Incoming"],s:["Non-smoker, no smoking","Non-smoker, fine","Smoker"],c:["Very tidy","Average","Relaxed"],r:["Early bird","Night owl","No preference"],p:["Fine","No pets","I have a pet"],u:["Sometimes","Often","Never"],all:"All",
+none:"No matching profiles yet. Be the first! 🙂",req:"Please fill the * fields.",cons:"Please tick the consent box.",ok:"✓ Profile saved.",err:"Something went wrong, try again.",sure:"Delete your profile?",looks:"Looking for",cl:" year",sent:"Email sent. Check your inbox and spam.",bad:"Wrong email or password.",used:"This email is already registered.",weak:"Password must be at least 6 characters."}};
+const SEL={gender:"g",want:"w",year:"y",smoke:"s",clean:"c",rhythm:"r",pet:"p",guest:"u"};
+const F=["name","age","gender","want","city","uni","dept","year","budget","date","bio","smoke","clean","rhythm","pet","guest","crit","contact"];
+let L=(navigator.language||"").startsWith("tr")?"tr":"en",user=null,all=[],mode="login",unsub=null,filled=false;
+const t=k=>T[L][k];
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm=s=>String(s||"").toLocaleLowerCase(L).trim();
+const opt=(k,i)=>t(SEL[k])[i]??"";
+const eduOf=u=>{const m=(u?.email||"").toLowerCase().match(/@(.+\.(edu(\.[a-z]{2})?|ac\.[a-z]{2}))$/);return m?m[1]:""};
+const note=(k,ok)=>{$("msg").textContent=k?t(k)||k:"";$("msg").classList.toggle("hide",!k)};
+function fill(){for(const[k,a]of Object.entries(SEL)){const e=$(k),v=e.value;e.innerHTML=t(a).map((x,i)=>`<option value="${i}">${esc(x)}</option>`).join("");e.value=v||"0"}
+ const f=$("fg"),v=f.value;f.innerHTML=`<option value="">${t("all")}</option>`+t("g").map((x,i)=>`<option value="${i}">${esc(x)}</option>`).join("");f.value=v}
+function authUi(){$("atitle").textContent=t(mode=="login"?"login":"reg");$("go").textContent=t(mode=="login"?"login":"reg");$("sw").textContent=t(mode=="login"?"noacc":"hasacc");$("pw").autocomplete=mode=="login"?"current-password":"new-password"}
+function vstat(){const d=eduOf(user);$("vs").textContent=!user?"":(d&&user.emailVerified)?t("v2")+" "+d:d?t("v1"):t("v0");$("vsend").classList.toggle("hide",!user||user.emailVerified)}
+function lang(){document.documentElement.lang=L;document.querySelectorAll("[data-i]").forEach(e=>e.textContent=t(e.dataset.i));$("lang").textContent=L=="tr"?"EN":"TR";fill();authUi();vstat();render()}
+$("lang").onclick=()=>{L=L=="tr"?"en":"tr";lang()};
+const tab=n=>{$("v1").classList.toggle("hide",n!=1);$("v2").classList.toggle("hide",n!=2);$("t1").className=n==1?"on":"";$("t2").className=n==2?"on":""};
+$("t1").onclick=()=>tab(1);$("t2").onclick=()=>tab(2);
+$("sw").onclick=()=>{mode=mode=="login"?"reg":"login";authUi()};
+const aerr=e=>{const c=e.code||"";note(c.includes("email-already")?"used":c.includes("weak")?"weak":c.includes("credential")||c.includes("password")||c.includes("user-not")?"bad":"err")};
+$("go").onclick=async()=>{note("");const e=$("em").value.trim(),p=$("pw").value;try{if(mode=="login")await signInWithEmailAndPassword(auth,e,p);else{const c=await createUserWithEmailAndPassword(auth,e,p);if(eduOf(c.user))sendEmailVerification(c.user).catch(()=>{})}}catch(x){aerr(x)}};
+$("fg2").onclick=async()=>{const e=$("em").value.trim();if(!e)return;try{await sendPasswordResetEmail(auth,e);note("sent")}catch(x){note("err")}};
+$("out").onclick=()=>signOut(auth);
+$("vsend").onclick=async()=>{try{await sendEmailVerification(user);note("sent")}catch(x){note("err")}};
+$("vref").onclick=async()=>{try{await user.reload();await user.getIdToken(true);user=auth.currentUser;vstat();note("")}catch(x){note("err")}};
+function render(){
+ const c=norm($("fc").value),u=norm($("fu").value),b=norm($("fb").value),g=$("fg").value,eo=$("fe").checked;
+ const r=all.filter(p=>(!c||norm(p.city).includes(c))&&(!u||norm(p.uni).includes(u))&&(!b||norm(p.dept).includes(b))&&(g===""||String(p.gender)===g)&&(!eo||p.edu)&&p._id!==user?.uid);
+ $("list").innerHTML=r.length?r.map(p=>`<div class="card"><div class="n">${esc(p.name)}, ${esc(p.age)}${p.edu?`<span class="bd">🎓 ${esc(p.edu)}</span>`:""}</div>
+ <div class="m">${esc(p.uni)} · ${esc(p.dept)} · ${esc(opt("year",p.year))}${p.year>=1&&p.year<=4?t("cl"):""}</div>
+ <div class="m">📍 ${esc(p.city)}${p.budget?` · 💰 ${esc(p.budget)}`:""}${p.date?` · 📅 ${esc(p.date)}`:""}</div><p>${esc(p.bio)}</p>
+ <span class="tag">🚬 ${esc(opt("smoke",p.smoke))}</span><span class="tag">🧹 ${esc(opt("clean",p.clean))}</span><span class="tag">🌙 ${esc(opt("rhythm",p.rhythm))}</span><span class="tag">🐾 ${esc(opt("pet",p.pet))}</span><span class="tag">👥 ${esc(opt("guest",p.guest))}</span>
+ <div class="m" style="margin-top:6px">${t("looks")}: ${esc(opt("want",p.want))}${p.crit?" — "+esc(p.crit):""}</div><div style="margin-top:8px"><b>✉</b> ${esc(p.contact)}</div></div>`).join(""):`<div class="card m">${t("none")}</div>`}
+["fc","fu","fb"].forEach(i=>$(i).oninput=render);$("fg").onchange=render;$("fe").onchange=render;
+$("save").onclick=async()=>{
+ const d={};F.forEach(k=>d[k]=$(k).value.trim());
+ for(const k of["name","age","city","uni","dept","bio","contact"])if(!d[k])return note("req");
+ if(!$("ok").checked)return note("cons");
+ d.edu=user.emailVerified?eduOf(user):"";d.updated=Date.now();
+ try{await setDoc(doc(db,"profiles",user.uid),d);note("");$("saved").textContent=t("ok");$("del").classList.remove("hide")}catch(e){note("err")}};
+$("del").onclick=async()=>{if(!confirm(t("sure")))return;try{await deleteDoc(doc(db,"profiles",user.uid));["name","age","city","uni","dept","budget","date","bio","crit","contact"].forEach(k=>$(k).value="");$("ok").checked=false;$("del").classList.add("hide");$("saved").textContent=""}catch(e){note("err")}};
+onAuthStateChanged(auth,u=>{user=u;filled=false;if(unsub){unsub();unsub=null}
+ $("auth").classList.toggle("hide",!!u);$("app").classList.toggle("hide",!u);$("out").classList.toggle("hide",!u);
+ if(!u){all=[];return}
+ vstat();note("");
+ unsub=onSnapshot(collection(db,"profiles"),s=>{all=s.docs.map(d=>({...d.data(),_id:d.id}));render();
+  const me=all.find(p=>p._id===u.uid);if(me&&!filled){F.forEach(k=>{if(me[k]!=null)$(k).value=me[k]});$("del").classList.remove("hide");filled=true}},()=>note("err"))});
+lang();
+</script></body></html>
